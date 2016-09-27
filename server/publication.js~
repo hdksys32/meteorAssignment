@@ -1,0 +1,13 @@
+ReactiveTable.publish("getAllProduct", function () {
+    if (this.userId)
+        return collProduct;
+    else
+        return [];
+});
+
+Meteor.publish("getProductDetail", function (productId) {
+    if (productId)
+        return  collProduct.find({'_id': productId});
+    else
+        return [];
+});

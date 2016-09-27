@@ -1,0 +1,51 @@
+<template  name ="tmpActivityMonitor">
+    <div class="container">
+        <div class="myclass">
+            <h1>Activity Monitor</h1>
+            <ul class="eventMain">
+                {{#each getEvents}}
+                    {{> Template.dynamic template=(getTemplate event_type) }}
+                {{/each}}
+            </ul>
+
+        </div>
+    </div>
+</template>
+
+<template name ="tempOTAEvents">
+    <li><div class="title {{classOTAUpdateSucceed }}">{{isOTAUpdateSucceed success}}</div><div class="subTitle">{{ts}}</div></li>
+</template>
+
+<template name ="tempWaterUseEvents">
+    <li>
+        <div class="title pending">Water Use</div>
+        <div class="subTitle">{{ts.t0}}</div>
+        <div class="eventDetail eventDetailWaterUse">
+            <ul>
+                <li class="subTitle">{{getDifference}}</li>
+                <li class="subTitle">{{volume}} L</li>
+                <li class="subTitle">{{temp}} C</li>
+            </ul>
+        </div>
+    </li>
+</template>
+
+<template name ="tempTimeLimitEvents">
+    <li>
+        <div class="title pending">Limit reached</div>
+        <div class="subTitle">{{ts}}</div>
+        <div class="eventDetail">
+            <ul>
+                <li class="subTitle">{{limit}}</li>
+                <li class="subTitle"> > </li>
+                <li class="subTitle">{{phone_num}}</li>
+            </ul>
+        </div>
+    </li>
+</template>
+
+
+
+
+
+

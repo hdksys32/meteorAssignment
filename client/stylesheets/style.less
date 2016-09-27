@@ -1,0 +1,81 @@
+@width:percentage(0.3);
+@height:600px;
+@font-size-title :16px;
+@font-size-sub-title :14px;
+@font-size-other-title :18px;
+.container{
+  h1{
+    font-size: 25px;
+    color:#E45456;
+  }
+
+  .myclass {
+    height: @height;
+    width: @width;
+    background-image: linear-gradient(180deg, #cbdaea, #eaf4ff);
+    span {
+      font-size: @font-size-title;
+      color: #E45456;
+    }
+    .eventMain {
+      padding-left: 10px;
+      border-left: 2px solid #dde9f7;
+      margin-left: 50px;
+      height: 100%;
+      li > {
+        float: left;
+        clear: both;
+        list-style: none;
+        .title {
+          font-size: @font-size-title;
+          font-weight: bold;
+          padding: 10px 5px 5px 5px;
+        }
+        .subTitle {
+          font-size: @font-size-sub-title;
+          color: #8f94ae;
+          font-weight: bold;
+          padding: 0px 0px 10px 5px
+        }
+        .success {
+          color: #2be393
+        }
+        .fail {
+          color: #ef3964
+        }
+        .pending {
+          color: #333;
+        }
+        .eventDetail{
+          ul {
+            padding-left: 0px;
+            margin-left: 0px;
+            li > {
+              float: left;
+              clear:none;
+              list-style: none;
+              color: #3757ff;
+              font-size: @font-size-other-title;
+              font-weight: bold;
+            }
+          }
+        }
+        .eventDetailWaterUse {
+          ul {
+            padding-left: 0px;
+            margin-left: 0px;
+          }
+          li:after
+          {
+            content: ' |';
+          }
+          li:last-child:after
+          {
+            content: '';
+          }
+        }
+
+      }
+    }
+  }
+}
