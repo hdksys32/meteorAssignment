@@ -7,7 +7,14 @@
                     {{> Template.dynamic template=(getTemplate event_type) }}
                 {{/each}}
             </ul>
-
+            <div>
+                <select id="ddlEventType" class="ddlSelect" name="event_type">
+                    <option value="0">All Event</option>
+                    <option value="ota_event">OTA Update</option>
+                    <option value="water_use">Water Use</option>
+                    <option value="time_limit">Time Limit</option>
+                </select>
+            </div>
         </div>
     </div>
 </template>

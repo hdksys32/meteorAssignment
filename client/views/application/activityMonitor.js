@@ -1,15 +1,16 @@
-query = {};
+
 varLimit= new ReactiveVar(10);
 varPerPage=new ReactiveVar(10)
 varTotalRecord = new ReactiveVar(0);
 
 Template.tmpActivityMonitor.created=function(){
+    Session.set("query",{});
     Tracker.autorun(function() {
         Meteor.call("getTotalRecords",function(err,response){
             if(!err && response)
                 varTotalRecord.set(response);
         })
-        Meteor.subscribe("getActivity",query,varLimit.get());
+        Meteor.subscribe("getActivity", Session.get("query"),varLimit.get());
     });
 }
 
@@ -35,16 +36,6 @@ Template.tmpActivityMonitor.rendered=function() {
     });
 }
 
-function loadMoreEvents(){
-    var currentLimit =0;
-    currentLimit= (varLimit.get() + varPerPage.get());
-    varLimit.set(currentLimit);
-}
-
-function hasMoreData(){
-    return varTotalRecord.get() > varLimit.get();
-}
-
 Template.tmpActivityMonitor.helpers({
     getEvents:function () {
         return events.find();
@@ -58,6 +49,32 @@ Template.tmpActivityMonitor.helpers({
             return  'tempTimeLimitEvents';
     }
 })
+
+Template.tmpActivityMonitor.events({
+    'change #ddlEventType':function(e){
+        debugger;
+        e.preventDefault();
+        var currentTarget = e.currentTarget;
+        if(currentTarget.selectedIndex > 0) {
+            var value = currentTarget.options[currentTarget.selectedIndex].value;
+            var query = {'event_type': value}
+            Session.set("query", query);
+        }
+        else
+            Session.set("query", {});
+        return false;
+    }
+})
+
+function loadMoreEvents(){
+    var currentLimit =0;
+    currentLimit= (varLimit.get() + varPerPage.get());
+    varLimit.set(currentLimit);
+}
+
+function hasMoreData(){
+    return varTotalRecord.get() > varLimit.get();
+}
 
 Template.tempOTAEvents.created=function(){
     if(this.data && this.data.success)
@@ -89,7 +106,6 @@ function isOTAUpdateSucceed (isSucceed){
 }
 
 getFormattedDate=function(date){
-    debugger;
     var today = new Date();
     if(moment(today).format("L") ==  moment(date).format("L"))
         return  moment(date).startOf('hour').fromNow();
