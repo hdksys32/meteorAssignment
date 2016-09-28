@@ -8,25 +8,29 @@
                 {{/each}}
             </ul>
             <div>
-                <select id="ddlEventType" class="ddlSelect" name="event_type">
-                    <option value="0">All Event</option>
-                    <option value="ota_event">OTA Update</option>
-                    <option value="water_use">Water Use</option>
-                    <option value="time_limit">Time Limit</option>
-                </select>
+                <div class="floatLeft">
+                    <select id="ddlEventType" class="ddlSelect" name="event_type">
+                        <option value="0">All Event</option>
+                        <option value="ota_event">OTA Update</option>
+                        <option value="water_use">Water Use</option>
+                        <option value="time_limit">Time Limit</option>
+                    </select>
+                </div>
+                <div class="currentDate">{{getCurrentDateOfScrolledEvent}}</div>
             </div>
+
         </div>
     </div>
 </template>
 
 <template name ="tempOTAEvents">
-    <li><div class="title {{classOTAUpdateSucceed }}">{{isOTAUpdateSucceed success}}</div><div class="subTitle">{{getDate ts}}</div></li>
+    <li><div class="title {{classOTAUpdateSucceed }}">{{isOTAUpdateSucceed success}}</div><div class="subTitle elementRequired">{{getDate ts}} <div class="elementFocused">{{getOnlyDate ts}}</div></div></li>
 </template>
 
 <template name ="tempWaterUseEvents">
     <li>
         <div class="title pending">Water Use</div>
-        <div class="subTitle">{{getDate ts.t0}}</div>
+        <div class="subTitle elementRequired">{{getDate ts.t0}} <div class="elementFocused">{{getOnlyDate ts}}</div></div>
         <div class="eventDetail eventDetailWaterUse">
             <ul>
                 <li class="subTitle">{{getDifference}}</li>
@@ -40,7 +44,7 @@
 <template name ="tempTimeLimitEvents">
     <li>
         <div class="title pending">Limit reached</div>
-        <div class="subTitle">{{getDate ts}}</div>
+        <div class="subTitle elementRequired">{{getDate ts}}<div class="elementFocused">{{getOnlyDate ts}}</div></div>
         <div class="eventDetail">
             <ul>
                 <li class="subTitle">{{limit}}</li>

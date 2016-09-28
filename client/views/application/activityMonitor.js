@@ -2,6 +2,7 @@
 varLimit= new ReactiveVar(10);
 varPerPage=new ReactiveVar(10)
 varTotalRecord = new ReactiveVar(0);
+var getCurrentDateOfEvent = new ReactiveVar('')
 
 Template.tmpActivityMonitor.created=function(){
     Session.set("query",{});
@@ -22,6 +23,7 @@ Template.tmpActivityMonitor.rendered=function() {
                 loadMoreEvents();
             }
         }
+        getDateForCurrentEvent();
     });
 
     element.slimScroll({
@@ -47,6 +49,9 @@ Template.tmpActivityMonitor.helpers({
             return  'tempWaterUseEvents';
         if(type=="time_limit")
             return  'tempTimeLimitEvents';
+    },
+    getCurrentDateOfScrolledEvent:function(){
+        return getCurrentDateOfEvent.get();
     }
 })
 
@@ -81,6 +86,14 @@ Template.tempOTAEvents.created=function(){
         this.flagOTAUpdateSucceed =isOTAUpdateSucceed(this.data.success);
 }
 
+Template.tempOTAEvents.rendered=function(){
+    if(getCurrentDateOfEvent.get()=="") {
+        var currentDateElement = $(".elementRequired");
+        if (currentDateElement.length > 0)
+            getCurrentDateOfEvent.set($(currentDateElement[0]).find(".elementFocused").text());
+    }
+}
+
 Template.tempOTAEvents.helpers({
     isOTAUpdateSucceed:function (isSucceed) {
         return Template.instance().flagOTAUpdateSucceed  ? "OTA Update succeed" : "OTA Update failed"
@@ -95,16 +108,43 @@ Template.tempWaterUseEvents.created=function(){
         this.timeStamp =  this.data.ts.t1 - this.data.ts.t0;
     }
 }
+
+Template.tempWaterUseEvents.rendered=function(){
+    if(getCurrentDateOfEvent.get()=="") {
+        var currentDateElement = $(".elementRequired");
+        if (currentDateElement.length > 0)
+            getCurrentDateOfEvent.set($(currentDateElement[0]).find(".elementFocused").text());
+    }
+}
+
 Template.tempWaterUseEvents.helpers({
     getDifference:function (isSucceed) {
         return Template.instance().timeStamp;
     }
 })
 
+Template.tempTimeLimitEvents.rendered=function(){
+    if(getCurrentDateOfEvent.get()=="") {
+        var currentDateElement = $(".elementRequired");
+        if (currentDateElement.length > 0)
+            getCurrentDateOfEvent.set($(currentDateElement[0]).find(".elementFocused").text());
+    }
+}
+
+
 function isOTAUpdateSucceed (isSucceed){
     return isSucceed;
 }
 
+getDateForCurrentEvent =function(){
+    $(".elementRequired").each(function(){
+        var pos =$(this).position()
+        var top =pos.top;
+        if(top > 0 && top < 70)
+            getCurrentDateOfEvent.set($(this).find(".elementFocused").text());
+
+    })
+}
 getFormattedDate=function(date){
     var today = new Date();
     if(moment(today).format("L") ==  moment(date).format("L"))
@@ -112,4 +152,9 @@ getFormattedDate=function(date){
     else
         return moment(date).format('L') + "," + moment(date).format('LT');
 }
+
+getOnlyDateForScrolledElement=function(date){
+    return date && moment(date).format('L') || "-" ;
+}
 UI.registerHelper('getDate', getFormattedDate);
+UI.registerHelper('getOnlyDate', getOnlyDateForScrolledElement);
