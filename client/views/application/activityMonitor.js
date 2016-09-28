@@ -22,17 +22,6 @@ Template.tmpActivityMonitor.rendered=function() {
             }
         }
     });
-
-    element.slimScroll({
-        size: '5px',
-        height: '400',
-        color: '#3757ff',
-        railVisible: true,
-        alwaysVisible: true,
-        distance: '20px',
-        railColor: '#eaf4ff',
-        railOpacity: 0.7
-    });
 }
 
 function loadMoreEvents(){
@@ -63,6 +52,7 @@ Template.tempOTAEvents.created=function(){
     if(this.data && this.data.success)
         this.flagOTAUpdateSucceed =isOTAUpdateSucceed(this.data.success);
 }
+
 Template.tempOTAEvents.helpers({
     isOTAUpdateSucceed:function (isSucceed) {
         return Template.instance().flagOTAUpdateSucceed  ? "OTA Update succeed" : "OTA Update failed"
@@ -71,7 +61,6 @@ Template.tempOTAEvents.helpers({
         return Template.instance().flagOTAUpdateSucceed  ? "success" : "fail"
     }
 })
-
 
 Template.tempWaterUseEvents.created=function(){
     if(this.data && this.data.ts) {
