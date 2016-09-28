@@ -87,3 +87,13 @@ Template.tempWaterUseEvents.helpers({
 function isOTAUpdateSucceed (isSucceed){
     return isSucceed;
 }
+
+getFormattedDate=function(date){
+    debugger;
+    var today = new Date();
+    if(moment(today).format("L") ==  moment(date).format("L"))
+        return  moment(date).startOf('hour').fromNow();
+    else
+        return moment(date).format('L') + "," + moment(date).format('LT');
+}
+UI.registerHelper('getDate', getFormattedDate);
