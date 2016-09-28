@@ -22,6 +22,17 @@ Template.tmpActivityMonitor.rendered=function() {
             }
         }
     });
+
+    element.slimScroll({
+        size: '5px',
+        height: '400',
+        color: '#3757ff',
+        railVisible: true,
+        alwaysVisible: true,
+        distance: '20px',
+        railColor: '#eaf4ff',
+        railOpacity: 0.7
+    });
 }
 
 function loadMoreEvents(){
