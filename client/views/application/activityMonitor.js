@@ -52,6 +52,9 @@ Template.tmpActivityMonitor.helpers({
     },
     getCurrentDateOfScrolledEvent:function(){
         return getCurrentDateOfEvent.get();
+    },
+    getTotalRecord:function(){
+        return varTotalRecord.get();
     }
 })
 

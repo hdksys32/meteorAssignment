@@ -1,17 +1,19 @@
 @width:percentage(0.3);
 @height:500px;
-@font-size-title :16px;
-@font-size-sub-title :14px;
-@font-size-other-title :18px;
+@font-family: "Helvetica Neue Light", "Lucida Grande", "Calibri", "Arial", sans-serif;
+@font-size-title :14px;
+@font-size-sub-title :12px;
+@font-size-other-title :16px;
 body{
   overflow:hidden;
+  font-family:@font-family;
 }
 .container{
   margin:0 auto;
 
   h1{
-    font-size: 25px;
-    color:#E45456;
+    font-size: @font-size-other-title;
+    color:#555b79;
   }
   .myclass {
     width: @width;
@@ -46,16 +48,33 @@ body{
         float: left;
         clear: both;
         list-style: none;
+        position:relative;
+        .eventIcon{
+          height: 32px;
+          width: 32px;
+          background-repeat: no-repeat;
+          position: absolute;
+          left: 4px;
+          top:4px;
+        }
+        .otaEventIcon{
+          background: url("/img/ota.png");
+
+        }
+        .waterEventIcon{
+          background: url("/img/water.png");
+        }
+        .limitEventIcon{
+          background: url("/img/limit.png");
+        }
         .title {
           font-size: @font-size-title;
-          font-weight: bold;
-          padding: 10px 5px 5px 5px;
+          padding: 10px 5px 5px 40px;
         }
         .subTitle {
           font-size: @font-size-sub-title;
           color: #8f94ae;
-          font-weight: bold;
-          padding: 0px 0px 10px 5px
+          padding: 0px 0px 10px 40px
         }
         .elementFocused{
           display : none;
@@ -69,7 +88,8 @@ body{
         .pending {
           color: #333;
         }
-        .eventDetail{
+
+        .eventDetail:not(.eventDetailWaterUse){
           ul {
             padding-left: 0px;
             margin-left: 0px;
@@ -79,22 +99,50 @@ body{
               list-style: none;
               color: #3757ff;
               font-size: @font-size-other-title;
-              font-weight: bold;
+              span{
+                font-size :15px;
+                color: #3757ff;
+              }
+            }
+            .padd5{
+              padding: 0px 5px;
+            }
+            .padd0{
+              padding-left: 0px;
             }
           }
         }
         .eventDetailWaterUse {
           ul {
-            padding-left: 0px;
+            padding-left: 40px;
             margin-left: 0px;
+            li > {
+              float: left;
+              clear:none;
+              list-style: none;
+              color: #3757ff;
+              font-size: @font-size-other-title;
+              span{
+                font-size :15px;
+                color: #3757ff;
+              }
+            }
+          }
+          .paddFix{
+            padding:0px 6px 10px 0px;
           }
           li:after
           {
             content: ' |';
+            color:#8f94ae;
+            font-size:20px;
           }
           li:last-child:after
           {
             content: '';
+          }
+          span{
+            font-size :12px;
           }
         }
 
