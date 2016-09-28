@@ -1,14 +1,18 @@
 @width:percentage(0.3);
-@height:600px;
+@height:500px;
 @font-size-title :16px;
 @font-size-sub-title :14px;
 @font-size-other-title :18px;
+body{
+  overflow:hidden;
+}
 .container{
+  margin:0 auto;
+
   h1{
     font-size: 25px;
     color:#E45456;
   }
-
   .myclass {
     height: @height;
     width: @width;
@@ -20,8 +24,10 @@
     .eventMain {
       padding-left: 10px;
       border-left: 2px solid #dde9f7;
-      margin-left: 50px;
-      height: 100%;
+      margin-left: 25px;
+      height:@height;
+      overflow-y: scroll;
+      margin-right: 25px;
       li > {
         float: left;
         clear: both;

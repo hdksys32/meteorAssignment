@@ -1,0 +1,12 @@
+<head>
+    <script type="text/javascript" src="/js/jquery.validationEngine.js"></script>
+    <script type="text/javascript" src="/js/jquery.validationEngine-en.js"></script>
+</head>
+<template name="layout">
+    <div class="container">
+        <div id="main" class="row-fluid">
+            {{> adminMainNavbar}}
+            {{> yield}}
+        </div>
+    </div>
+</template>

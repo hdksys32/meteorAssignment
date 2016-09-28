@@ -1,9 +1,48 @@
 query = {};
 varLimit= new ReactiveVar(10);
-varSkip=new ReactiveVar(0);
+varPerPage=new ReactiveVar(10)
+varTotalRecord = new ReactiveVar(0);
 
 Template.tmpActivityMonitor.created=function(){
-    this.subscribe("getActivity",query,varLimit.get(),varSkip.get());
+    Tracker.autorun(function() {
+        Meteor.call("getTotalRecords",function(err,response){
+            if(!err && response)
+                varTotalRecord.set(response);
+        })
+        Meteor.subscribe("getActivity",query,varLimit.get());
+    });
+}
+
+Template.tmpActivityMonitor.rendered=function() {
+    var element = $('.eventMain');
+    element.scroll(function() {
+        if(hasMoreData()) {
+            if ($(this).scrollTop() > 0 && ($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight)) {
+                loadMoreEvents();
+            }
+        }
+    });
+
+    element.slimScroll({
+        size: '5px',
+        height: '400',
+        color: '#3757ff',
+        railVisible: true,
+        alwaysVisible: true,
+        distance: '20px',
+        railColor: '#eaf4ff',
+        railOpacity: 0.7
+    });
+}
+
+function loadMoreEvents(){
+    var currentLimit =0;
+    currentLimit= (varLimit.get() + varPerPage.get());
+    varLimit.set(currentLimit);
+}
+
+function hasMoreData(){
+    return varTotalRecord.get() > varLimit.get();
 }
 
 Template.tmpActivityMonitor.helpers({
